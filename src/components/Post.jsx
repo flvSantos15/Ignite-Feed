@@ -13,7 +13,7 @@ export function Post({
   publishedAt
 }) {
   const [comments, setComments] = useState([
-    "Post muito bacana, hein?!"
+    'Post muito bacana, hein?!'
   ])
   const [newCommentText, setNewCommentText] = useState('')
 
@@ -59,9 +59,9 @@ export function Post({
       <div className={styles.content}>
         {content.map((p) => {
           if (p.type === 'paragraph') {
-            return <p>{p.content}</p>
+            return <p key={p.content}>{p.content}</p>
           } else if (p.type === 'link') {
-            return <p><a href=''>{p.content}</a></p>
+            return <p key={p.content}><a href=''>{p.content}</a></p>
           }
         })}
       </div>
@@ -85,7 +85,7 @@ export function Post({
 
       <div className={styles.commentList}>
         {comments.map(comment => {
-          return <Comment content={comment} />
+          return <Comment key={comment} content={comment} />
         })}
       </div>
     </article>
