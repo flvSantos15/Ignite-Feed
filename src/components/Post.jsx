@@ -37,8 +37,9 @@ export function Post({
     setNewCommentText(event.target.value)
   }
 
-  function handleDeleteComment(comment) {
-    alert(comment)
+  function handleDeleteComment(commentToDelete) {
+    const commentsWithoutDeletedOne = comments.filter((item) => item !== commentToDelete)
+    setComments(commentsWithoutDeletedOne)
   }
 
   return (
