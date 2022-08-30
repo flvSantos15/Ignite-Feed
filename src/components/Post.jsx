@@ -12,7 +12,11 @@ export function Post({
   content,
   publishedAt
 }) {
-  const [comments, setComments] = useState([])
+  const [comments, setComments] = useState([
+    "Post muito bacana, hein?!"
+  ])
+  const [newCommentText, setNewCommentText] = useState('')
+
   const publisheDateformatted = format(publishedAt, "d 'de' LLL 'ás' HH:mm'h'", {
     locale: ptBR,
   })
@@ -22,10 +26,15 @@ export function Post({
     addSuffix: true
   })
 
-  function handleCreateNewComment(data) {
+  function handleCreateNewComment() {
     event.preventDefault()
 
-    setComments([...comments, data])
+    setComments([...comments, newCommentText])
+    setNewCommentText('')
+  }
+
+  function handleNewCommentChange() {
+    setNewCommentText(event.target.value)
   }
 
   return (
@@ -63,6 +72,9 @@ export function Post({
         </strong>
 
         <textarea
+          name='comment'
+          value={newCommentText}
+          onChange={handleNewCommentChange}
           placeholder='deixe um comentário'
         />
 
@@ -73,7 +85,7 @@ export function Post({
 
       <div className={styles.commentList}>
         {comments.map(comment => {
-          <Comment />
+          return <Comment content={comment} />
         })}
       </div>
     </article>
