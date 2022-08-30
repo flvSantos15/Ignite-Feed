@@ -37,6 +37,10 @@ export function Post({
     setNewCommentText(event.target.value)
   }
 
+  function handleDeleteComment(comment) {
+    alert(comment)
+  }
+
   return (
     <article className={styles.post}>
       <header>
@@ -85,7 +89,13 @@ export function Post({
 
       <div className={styles.commentList}>
         {comments.map(comment => {
-          return <Comment key={comment} content={comment} />
+          return (
+            <Comment
+              key={comment}
+              content={comment}
+              onDeleteComment={() => handleDeleteComment(comment)}
+            />
+          )
         })}
       </div>
     </article>
