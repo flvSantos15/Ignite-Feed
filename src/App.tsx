@@ -1,11 +1,11 @@
 import { Header } from "./components/Header"
-import { Post } from './components/Post'
+import { IPost, Post } from './components/Post'
 import { Sidebar } from "./components/Sidebar"
 
 import styles from '../src/App.module.css'
 import '../src/global.css'
 
-const posts = [
+const posts: IPost[] = [
   {
     id: 1,
     author: {

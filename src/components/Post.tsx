@@ -1,17 +1,35 @@
 import { format, formatDistanceToNow } from 'date-fns'
 import ptBR from 'date-fns/locale/pt-BR'
-import { useState } from 'react'
+import { ChangeEvent, FormEvent, InvalidEvent, useState } from 'react'
 
 import { Avatar } from './Avatar'
 import { Comment } from './Comment'
 
 import styles from './Post.module.css'
 
+export interface IAuthor {
+  avatarUrl: string
+  name: string
+  role: string
+}
+
+export interface IContent {
+  type: 'paragraph' | 'link'
+  content: string
+}
+
+export interface IPost {
+  id?: number
+  author: IAuthor
+  content: IContent[]
+  publishedAt: Date
+}
+
 export function Post({
   author,
   content,
   publishedAt
-}) {
+}: IPost) {
   const [comments, setComments] = useState([
     'Post muito bacana, hein?!'
   ])
@@ -26,23 +44,23 @@ export function Post({
     addSuffix: true
   })
 
-  function handleCreateNewComment() {
+  function handleCreateNewComment(event: FormEvent) {
     event.preventDefault()
 
     setComments([...comments, newCommentText])
     setNewCommentText('')
   }
 
-  function handleNewCommentChange() {
+  function handleNewCommentChange(event: ChangeEvent<HTMLTextAreaElement>) {
     event.target.setCustomValidity('')
     setNewCommentText(event.target.value)
   }
 
-  function handleNewCommentInvalid() {
+  function handleNewCommentInvalid(event: InvalidEvent<HTMLTextAreaElement>) {
     event.target.setCustomValidity('Este campo é obrigatório!')
   }
 
-  function handleDeleteComment(commentToDelete) {
+  function handleDeleteComment(commentToDelete: string) {
     const commentsWithoutDeletedOne = comments.filter((item) => item !== commentToDelete)
     setComments(commentsWithoutDeletedOne)
   }
